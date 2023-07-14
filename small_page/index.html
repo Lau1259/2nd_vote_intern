@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frontend Intern Practical Exam</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: none;
+      }
+      .btn {
+        color: white;
+        font-size: 22px;
+        padding: 0.5rem 2rem;
+        border-radius: 0.25rem;
+        border: none;
+        box-shadow: 2px 2px 5px #222a;
+        transition: 0.35s;
+        display: block;
+      }
+      [data-theme="green"] {
+        background: green;
+      }
+      [data-theme="red"] {
+        background: red;
+      }
+      .center,
+      .modal-container {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: max-content;
+        width: max-content;
+      }
+      .move {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+
+      .modal {
+        background: #1119;
+        color: white;
+        border-radius: 0.5rem;
+        height: 15vh;
+        width: 30vw;
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        padding: 2rem;
+        z-index: 200;
+        position: relative;
+      }
+      .modal-container {
+        width: 100vw;
+        height: 100vh;
+        background: #1119;
+        display: grid;
+        place-content: center;
+      }
+      #form-control {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        font-size: 2rem;
+      }
+
+      .hide {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button data-theme="green" id="btn1" class="btn center">BTN1</button
+    ><button data-theme="red" id="btn2" class="btn">BTN2</button>
+    <div class="modal-container hide">
+      <div class="modal">
+        <i id="form-control" class="bi bi-x-circle"></i>
+        <form>
+          <p>You have selected:</p>
+          <p id="form-information"></p>
+        </form>
+      </div>
+    </div>
+    <script>
+      window.onload = () => {
+        setTimeout(() => {
+          document.querySelector("#btn2").classList.toggle("move");
+        }, 2000);
+      };
+
+      const buttons = document.querySelectorAll("button");
+      const modalContainer = document.querySelector(".modal-container");
+      const formControl = document.getElementById("form-control");
+      const modalText = document.getElementById("form-information");
+      buttons.forEach((b) =>
+        b.addEventListener("click", (e) => {
+          let current = e.target;
+          current.dataset.theme =
+            current.dataset.theme === "red" ? "green" : "red";
+          modalText.innerText = `${current.id}`;
+          modalContainer.classList.remove("hide");
+        })
+      );
+      formControl.addEventListener("click", (e) => {
+        modalContainer.classList.add("hide");
+      });
+    </script>
+  </body>
+</html>
